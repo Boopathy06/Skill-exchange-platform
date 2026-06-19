@@ -1,15 +1,41 @@
 const express = require("express");
+const User = require("../models/User");
 
 const router = express.Router();
 
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
 
-    console.log(req.body);
+  try {
+
+    const {
+      username,
+      email,
+      mobile,
+      password
+    } = req.body;
+
+    const user = await User.create({
+      username,
+      email,
+      mobile,
+      password
+    });
 
     res.status(201).json({
-        success: true,
-        message: "Registration received"
+      success: true,
+      user
     });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Registration Failed"
+    });
+
+  }
 
 });
 
