@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
     unique: true
   },
 
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
   mobile: {
     type: String,
     required: true
@@ -22,6 +26,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   }
+  
 
 }, {
   timestamps: true

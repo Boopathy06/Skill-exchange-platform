@@ -3,9 +3,13 @@ import image from "../assets/register-image.png";
 import "./../styles/Register.css";
 import { registerUser } from "../services/authService";
 import { FcGoogle } from "react-icons/fc";
-
+import {
+  useNavigate
+}
+from "react-router-dom";
 function Register() {
-
+  const navigate =
+    useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -20,24 +24,35 @@ function Register() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
 
-    try {
+  e.preventDefault();
 
-      const response = await registerUser(formData);
+  try {
 
-      console.log(response);
+    const response =
+      await registerUser(formData);
 
-      alert("Registration Successful");
+    console.log(response);
 
-    } catch (error) {
+    if (response.success) {
 
-      console.error(error);
+      navigate("/verify-otp");
 
-      alert("Registration Failed");
     }
-  };
+
+  } catch (error) {
+
+    console.log(error);
+
+    alert(
+      error.response?.data?.message ||
+      error.message
+    );
+
+  }
+
+};
 
   return (
     <div className="register-container">

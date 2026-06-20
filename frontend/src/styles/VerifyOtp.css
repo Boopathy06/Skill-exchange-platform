@@ -1,0 +1,29 @@
+.verify-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.verify-card {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.verify-input {
+    padding: 12px;
+    font-size: 16px;
+    color: black;
+    background: white;
+    border: 1px solid #ccc;
+}
+
+.verify-btn {
+    padding: 12px;
+    background: #ff6b1a;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
