@@ -222,5 +222,69 @@ router.post(
 
     }
 );
+router.post("/verify-otp", async (req, res) => {
 
+    try {
+
+        const { email, otp } = req.body;
+
+        const otpRecord =
+            await Otp.findOne({ email });
+
+        if (!otpRecord) {
+
+            return res.status(400).json({
+                success: false,
+                message: "OTP not found"
+            });
+
+        }
+
+        if (otpRecord.otp !== otp) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Invalid OTP"
+            });
+
+        }
+
+        await User.findOneAndUpdate(
+
+            { email },
+
+            {
+                isVerified: true
+            }
+
+        );
+
+        await Otp.deleteOne({ email });
+
+        res.json({
+
+            success: true,
+
+            message:
+                "OTP Verified Successfully"
+
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Server Error"
+
+                
+        });
+
+    }
+
+});
 module.exports = router;

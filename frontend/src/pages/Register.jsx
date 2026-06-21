@@ -37,7 +37,18 @@ function Register() {
 
     if (response.success) {
 
-      navigate("/verify-otp");
+      navigate(
+
+  "/verify-otp",
+
+  {
+    state: {
+      email:
+        formData.email
+    }
+  }
+
+);
 
     }
 

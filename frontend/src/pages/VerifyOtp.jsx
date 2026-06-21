@@ -1,39 +1,108 @@
 import { useState } from "react";
-import "../styles/VerifyOtp.css";
+
+import {
+  useLocation,
+  useNavigate
+}
+from "react-router-dom";
+
+import {
+  verifyOtp
+}
+from "../services/authService";
 
 function VerifyOtp() {
 
-    const [otp, setOtp] = useState("");
+  const [otp, setOtp] =
+      useState("");
 
-    return (
+  const location =
+      useLocation();
 
-        <div className="verify-container">
+  const navigate =
+      useNavigate();
 
-            <div className="verify-card">
+  const email =
+      location.state.email;
 
-                <h1>Verify OTP</h1>
+  const handleVerify =
+      async () => {
 
-                <input
-                    className="verify-input"
-                    type="text"
-                    placeholder="Enter OTP"
-                    value={otp}
-                    onChange={(e) =>
-                        setOtp(e.target.value)
-                    }
-                />
+    try {
 
-                <button
-                    className="verify-btn"
-                >
-                    Verify OTP
-                </button>
+      const response =
+        await verifyOtp({
 
-            </div>
+          email,
 
-        </div>
+          otp
 
-    );
+        });
+
+      alert(
+        response.message
+      );
+
+      navigate("/login");
+
+    }
+    catch(error){
+
+      alert(
+
+        error.response
+        ?.data
+        ?.message
+
+      );
+
+    }
+
+  };
+
+  return (
+
+    <div>
+
+      <h1>
+        Verify OTP
+      </h1>
+
+      <input
+
+        type="text"
+
+        placeholder=
+          "Enter OTP"
+
+        value={otp}
+
+        onChange={(e)=>
+
+          setOtp(
+            e.target.value
+          )
+
+        }
+
+      />
+
+      <button
+
+        onClick={
+          handleVerify
+        }
+
+      >
+
+        Verify OTP
+
+      </button>
+
+    </div>
+
+  );
+
 }
 
 export default VerifyOtp;
