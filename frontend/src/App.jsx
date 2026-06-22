@@ -6,7 +6,7 @@ from "./pages/Register";
 
 import VerifyOtp
 from "./pages/VerifyOtp";
-
+import Login from "./pages/Login";
 function App() {
 
   return (
@@ -23,6 +23,10 @@ function App() {
         element={<VerifyOtp />}
       />
 
+      <Route
+  path="/login"
+  element={<Login />}
+/>
     </Routes>
 
   );

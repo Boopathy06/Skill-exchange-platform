@@ -280,8 +280,6 @@ router.post("/verify-otp", async (req, res) => {
 
             message:
                 "Server Error"
-
-                
         });
 
     }
